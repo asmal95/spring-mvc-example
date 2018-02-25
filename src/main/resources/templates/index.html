@@ -4,7 +4,13 @@
       th:include="layout :: page">
 <body>
     <div th:fragment="content">
+
+        <div class="jumbotron">
             <h1>Welcome to the Quoter application!</h1>
+            <p th:if="${quote}">Random quote for your: <span th:text="${quote.text}"></span></p>
+            <p><a class="btn btn-primary btn-lg" href="/quote" role="button">More quotes!</a></p>
+        </div>
+
     </div>
 </body>
 </html>
