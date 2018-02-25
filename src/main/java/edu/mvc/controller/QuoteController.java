@@ -56,6 +56,18 @@ public class QuoteController {
         return "quote/add";
     }
 
+    @GetMapping("/{id}/edit")
+    public String add(@PathVariable Long id, ModelMap model) {
+
+        Quote quote = quoteRepository.findOne(id);
+        FormQuote formQuote = conversionService.convert(quote, FormQuote.class);
+        model.addAttribute("quote", formQuote);
+        model.addAttribute("authors", authorRepository.findAll());
+        model.addAttribute("themes", themeRepository.findAll());
+
+        return "quote/add";
+    }
+
     @PostMapping("/add")
     public String add(@Valid @ModelAttribute("quote") FormQuote formQuote,
                       BindingResult result, ModelMap model) {

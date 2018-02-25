@@ -16,6 +16,12 @@
         <dd><a th:href="@{/theme/{id}/(id=${quote.theme.id})}" th:text="${quote.theme.title}"/></dd>
     </dl>
     <div class="well"  th:text="${quote.text}"></div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <a type="button" class="btn btn-primary" th:href="@{/quote/{id}/edit(id=${quote.id})}">Edit</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

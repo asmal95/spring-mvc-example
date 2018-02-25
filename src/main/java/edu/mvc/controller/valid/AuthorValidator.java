@@ -26,7 +26,8 @@ public class AuthorValidator implements Validator {
     public void validate(Object o, Errors errors) {
 
         Author author = (Author) o;
-        if (Objects.nonNull(repository.findByName(author.getName()))) {
+        Author savedAuthor = repository.findByName(author.getName());
+        if (Objects.nonNull(savedAuthor) && !savedAuthor.getId().equals(author.getId())) {
             errors.rejectValue("name", "author.name.nonUnique");
         }
     }

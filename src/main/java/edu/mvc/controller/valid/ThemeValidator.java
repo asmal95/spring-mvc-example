@@ -26,7 +26,8 @@ public class ThemeValidator implements Validator {
     public void validate(Object o, Errors errors) {
 
         Theme theme = (Theme) o;
-        if (Objects.nonNull(repository.findByTitle(theme.getTitle()))) {
+        Theme savedTheme = repository.findByTitle(theme.getTitle());
+        if (Objects.nonNull(savedTheme) && !savedTheme.getId().equals(theme.getId())) {
             errors.rejectValue("title", "theme.title.nonUnique");
         }
     }

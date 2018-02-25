@@ -50,6 +50,15 @@ public class ThemeController {
         return "theme/add";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, ModelMap model) {
+        Theme theme = themeRepository.findOne(id);
+
+        model.addAttribute("theme", theme);
+
+        return "theme/add";
+    }
+
     @PostMapping("/add")
     public String add(@Valid Theme theme, BindingResult result) {
 

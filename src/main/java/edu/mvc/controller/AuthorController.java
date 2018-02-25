@@ -51,6 +51,15 @@ public class AuthorController {
         return "author/add";
     }
 
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Long id, ModelMap model) {
+
+        Author author = authorRepository.findOne(id);
+        model.addAttribute("author", author);
+
+        return "author/add";
+    }
+
     @PostMapping("/add")
     public String add(@Valid Author author, BindingResult result) {
 

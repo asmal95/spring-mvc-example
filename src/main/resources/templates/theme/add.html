@@ -8,6 +8,8 @@
         <h3>New Theme</h3>
     </div>
     <form th:action="@{/theme/add}" th:object="${theme}" method="POST">
+        <input type="hidden" th:field="*{id}" />
+
         <div class="form-group">
             <label for="title">Theme Title</label>
             <input type="text" class="form-control" id="title" th:field="*{title}" />
