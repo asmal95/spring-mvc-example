@@ -54,7 +54,6 @@ public class AuthorController {
     @PostMapping("/add")
     public String add(@Valid Author author, BindingResult result) {
 
-        System.out.println("AHTUNG + " + result.hasErrors());
         if (result.hasErrors()) {
             return "author/add";
         }

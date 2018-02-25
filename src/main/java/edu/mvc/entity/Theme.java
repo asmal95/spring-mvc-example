@@ -1,6 +1,8 @@
 package edu.mvc.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Theme {
@@ -9,8 +11,12 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(min=3, max=30)
     private String title;
 
+    @NotNull
+    @Size(min = 10, max=255)
     private String description;
 
     public Long getId() {

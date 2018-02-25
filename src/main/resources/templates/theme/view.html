@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <h3 th:text="${theme.title}" ></h3>
+    <div class="well"  th:text="${theme.description}"></div>
+</div>
+</body>
+</html>
