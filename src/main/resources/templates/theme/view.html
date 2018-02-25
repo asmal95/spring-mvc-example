@@ -10,9 +10,27 @@
     <div class="well"  th:text="${theme.description}"></div>
     <div class="row">
         <div class="col-md-2 col-md-offset-10">
-            <a type="button" class="btn btn-primary" th:href="@{/theme/{id}/edit(id=${theme.id})}">Edit</a>
+            <a type="button" class="btn btn-success" th:href="@{/theme/{id}/edit(id=${theme.id})}">Edit</a>
+            <button type="button" data-toggle="modal" data-target="#deletePopup" class="btn btn-danger" href="#">Delete</button>
         </div>
     </div>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="deletePopup">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm removal</h4> </div>
+                <div class="modal-body">Are you sure you want to delete the Theme: <span th:text="${theme.title}"></span>?</div>
+                <div class="modal-footer">
+                    <form style="display: inline" th:action="@{/theme/{id}/delete(id=${theme.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

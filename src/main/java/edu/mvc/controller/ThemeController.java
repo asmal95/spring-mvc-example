@@ -70,4 +70,12 @@ public class ThemeController {
 
         return "redirect:/theme/" + theme.getId();
     }
+
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+
+        themeRepository.delete(id);
+
+        return "redirect:/theme";
+    }
 }

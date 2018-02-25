@@ -72,4 +72,12 @@ public class AuthorController {
         return "redirect:/author/" + author.getId();
     }
 
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+
+        authorRepository.delete(id);
+
+        return "redirect:/author";
+    }
+
 }

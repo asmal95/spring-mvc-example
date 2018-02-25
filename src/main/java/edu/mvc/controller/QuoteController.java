@@ -85,5 +85,13 @@ public class QuoteController {
         return "redirect:/quote/" + quote.getId();
     }
 
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Long id) {
+
+        quoteRepository.delete(id);
+
+        return "redirect:/quote";
+    }
+
 
 }
