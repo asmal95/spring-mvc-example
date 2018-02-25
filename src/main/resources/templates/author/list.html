@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <h3>Authors</h3>
+
+    <table class="zen-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="author : ${authors}">
+            <td><a th:href="@{/author/{id}/(id=${author.id})}" th:text="${author.name}"/></td>
+            <td th:text="${author.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
