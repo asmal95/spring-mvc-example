@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <h3>Quotes</h3>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Quote</th>
+            <th>Theme</th>
+            <th>Author</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="quote : ${quotes}">
+            <td th:text="${quote.text}"></td>
+            <td><a th:href="@{/theme/{id}/(id=${quote.theme.id})}" th:text="${quote.theme.title}"/></td>
+            <td><a th:href="@{/author/{id}/(id=${quote.author.id})}" th:text="${quote.author.name}"/></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <a type="button" class="btn btn-primary" th:href="@{/quote/add}">New Quote</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

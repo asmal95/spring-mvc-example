@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <h4 th:text="${quote.author.name}" ></h4>
+    <h4 th:text="${quote.theme.title}" ></h4>
+    <div class="well"  th:text="${quote.text}"></div>
+</div>
+</body>
+</html>

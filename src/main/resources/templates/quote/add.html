@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <form th:action="@{/quote/add}" th:object="${quote}" method="POST">
+        <div class="form-group">
+            <label for="text">Quote</label>
+            <textarea class="form-control" id="text" th:field="*{text}" ></textarea>
+            <ul>
+                <li th:each="err : ${#fields.errors('text')}" th:text="${err}"></li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="theme">Theme</label>
+            <select id="theme" class="form-control" th:field="*{themeId}">
+                <option th:each="theme : ${themes}"
+                        th:value="${theme.id}"
+                        th:text="${theme.title}"></option>
+            </select>
+            <ul>
+                <li th:each="err : ${#fields.errors('themeId')}" th:text="${err}"></li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="theme">Author</label>
+            <select id="author" class="form-control" th:field="*{authorId}">
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.name}"></option>
+            </select>
+            <ul>
+                <li th:each="err : ${#fields.errors('themeId')}" th:text="${err}"></li>
+            </ul>
+        </div>
+        <button type="submit" class="btn btn-default">Save</button>
+    </form>
+</div>
+</body>
+</html>
