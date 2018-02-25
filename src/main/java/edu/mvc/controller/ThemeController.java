@@ -1,5 +1,6 @@
 package edu.mvc.controller;
 
+import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.controller.valid.ThemeValidator;
 import edu.mvc.entity.Theme;
 import edu.mvc.repository.ThemeRepository;
@@ -38,6 +39,9 @@ public class ThemeController {
     @GetMapping("/{id}")
     public String view(@PathVariable Long id, ModelMap model) {
         Theme theme = themeRepository.findOne(id);
+        if (theme == null) {
+            throw new ResourceNotFoundException();
+        }
         model.addAttribute("theme", theme);
         return "theme/view";
     }
@@ -53,7 +57,9 @@ public class ThemeController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, ModelMap model) {
         Theme theme = themeRepository.findOne(id);
-
+        if (theme == null) {
+            throw new ResourceNotFoundException();
+        }
         model.addAttribute("theme", theme);
 
         return "theme/add";

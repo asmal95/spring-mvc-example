@@ -3,6 +3,7 @@ package edu.mvc.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class Theme {
@@ -18,6 +19,9 @@ public class Theme {
     @NotNull
     @Size(min = 10, max=255)
     private String description;
+
+    @OneToMany(mappedBy="theme", cascade = CascadeType.ALL)
+    private Set<Quote> quotes;
 
     public Long getId() {
         return id;
@@ -41,5 +45,13 @@ public class Theme {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Quote> getQuotes() {
+        return quotes;
+    }
+
+    public void setQuotes(Set<Quote> quotes) {
+        this.quotes = quotes;
     }
 }

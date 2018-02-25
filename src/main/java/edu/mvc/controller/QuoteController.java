@@ -1,6 +1,7 @@
 package edu.mvc.controller;
 
 import edu.mvc.controller.form.FormQuote;
+import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.entity.Quote;
 import edu.mvc.repository.AuthorRepository;
 import edu.mvc.repository.QuoteRepository;
@@ -42,6 +43,9 @@ public class QuoteController {
     @GetMapping("/{id}")
     public String view(@PathVariable Long id, ModelMap model) {
         Quote quote = quoteRepository.findOne(id);
+        if (quote == null) {
+            throw new ResourceNotFoundException();
+        }
         model.addAttribute("quote", quote);
         return "quote/view";
     }
@@ -60,6 +64,9 @@ public class QuoteController {
     public String add(@PathVariable Long id, ModelMap model) {
 
         Quote quote = quoteRepository.findOne(id);
+        if (quote == null) {
+            throw new ResourceNotFoundException();
+        }
         FormQuote formQuote = conversionService.convert(quote, FormQuote.class);
         model.addAttribute("quote", formQuote);
         model.addAttribute("authors", authorRepository.findAll());

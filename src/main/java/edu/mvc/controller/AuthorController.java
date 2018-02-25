@@ -1,5 +1,6 @@
 package edu.mvc.controller;
 
+import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.controller.valid.AuthorValidator;
 import edu.mvc.entity.Author;
 import edu.mvc.repository.AuthorRepository;
@@ -39,6 +40,9 @@ public class AuthorController {
     @GetMapping("/{id}")
     public String view(@PathVariable Long id, ModelMap model) {
         Author author = authorRepository.findOne(id);
+        if (author == null) {
+            throw new ResourceNotFoundException();
+        }
         model.addAttribute("author", author);
         return "author/view";
     }
@@ -55,6 +59,9 @@ public class AuthorController {
     public String edit(@PathVariable Long id, ModelMap model) {
 
         Author author = authorRepository.findOne(id);
+        if (author == null) {
+            throw new ResourceNotFoundException();
+        }
         model.addAttribute("author", author);
 
         return "author/add";
