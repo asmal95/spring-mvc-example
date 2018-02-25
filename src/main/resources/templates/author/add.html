@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <form th:action="@{/author/add}" th:object="${author}" method="POST">
+        <div class="form-group">
+            <label for="name">Author Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" />
+            <ul>
+                <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <label for="description">Author Description</label>
+            <input type="text" class="form-control" id="description" th:field="*{description}" />
+            <ul>
+                <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+            </ul>
+        </div>
+        <button type="submit" class="btn btn-default">Save</button>
+    </form>
+</div>
+</body>
+</html>

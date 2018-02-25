@@ -1,6 +1,13 @@
 spring:
   application.name: mvc-example
   profiles.active: ${MVC_ACTIVE_PROFILE:dev}
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    basename: messages
 ---
 spring:
   profiles: dev

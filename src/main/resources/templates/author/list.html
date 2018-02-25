@@ -6,7 +6,7 @@
 <div th:fragment="content">
     <h3>Authors</h3>
 
-    <table class="zen-table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Name</th>
@@ -20,6 +20,11 @@
         </tr>
         </tbody>
     </table>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <a type="button" class="btn btn-primary" th:href="@{/author/add}">New Author</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
