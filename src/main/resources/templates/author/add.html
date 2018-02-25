@@ -4,6 +4,9 @@
       th:include="layout :: page">
 <body>
 <div th:fragment="content">
+    <div class="page-header">
+        <h3>New Author</h3>
+    </div>
     <form th:action="@{/author/add}" th:object="${author}" method="POST">
         <div class="form-group">
             <label for="name">Author Name</label>

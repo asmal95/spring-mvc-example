@@ -4,6 +4,9 @@
       th:include="layout :: page">
 <body>
 <div th:fragment="content">
+    <div class="page-header">
+        <h3>New Quote</h3>
+    </div>
     <form th:action="@{/quote/add}" th:object="${quote}" method="POST">
         <div class="form-group">
             <label for="text">Quote</label>

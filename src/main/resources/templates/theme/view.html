@@ -4,7 +4,9 @@
       th:include="layout :: page">
 <body>
 <div th:fragment="content">
-    <h3 th:text="${theme.title}" ></h3>
+    <div class="page-header">
+        <h2 th:text="${theme.title}" ></h2>
+    </div>
     <div class="well"  th:text="${theme.description}"></div>
 </div>
 </body>

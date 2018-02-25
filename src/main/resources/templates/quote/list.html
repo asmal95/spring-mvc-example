@@ -4,7 +4,9 @@
       th:include="layout :: page">
 <body>
 <div th:fragment="content">
-    <h3>Quotes</h3>
+    <div class="page-header">
+        <h3>Quotes</h3>
+    </div>
 
     <table class="table table-striped">
         <thead>
@@ -16,7 +18,7 @@
         </thead>
         <tbody>
         <tr th:each="quote : ${quotes}">
-            <td th:text="${quote.text}"></td>
+            <td><a th:href="@{/quote/{id}/(id=${quote.id})}" th:text="${quote.text}"/></td>
             <td><a th:href="@{/theme/{id}/(id=${quote.theme.id})}" th:text="${quote.theme.title}"/></td>
             <td><a th:href="@{/author/{id}/(id=${quote.author.id})}" th:text="${quote.author.name}"/></td>
         </tr>

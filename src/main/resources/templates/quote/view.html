@@ -4,8 +4,17 @@
       th:include="layout :: page">
 <body>
 <div th:fragment="content">
-    <h4 th:text="${quote.author.name}" ></h4>
-    <h4 th:text="${quote.theme.title}" ></h4>
+    <div class="page-header">
+        <h3>Quote</h3>
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>Author</dt>
+        <dd><a th:href="@{/author/{id}/(id=${quote.author.id})}" th:text="${quote.author.name}"/></dd>
+
+        <dt>Theme</dt>
+        <dd><a th:href="@{/theme/{id}/(id=${quote.theme.id})}" th:text="${quote.theme.title}"/></dd>
+    </dl>
     <div class="well"  th:text="${quote.text}"></div>
 </div>
 </body>
