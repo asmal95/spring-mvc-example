@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Hello!</title>
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
 <body>
-    <h1>Hello world!</h1>
+    <div th:fragment="content">
+            <h1>Welcome to the Quoter application!</h1>
+    </div>
 </body>
 </html>
