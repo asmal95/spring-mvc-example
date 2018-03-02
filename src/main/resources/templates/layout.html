@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:fragment="page">
 <head>
     <title>MVC Example</title>
@@ -19,10 +20,20 @@
             <a class="navbar-brand" href="/">Quoter</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
+            <ul sec:authorize="isAuthenticated()" class="nav navbar-nav">
                 <li><a href="/theme/">Themes</a></li>
                 <li><a href="/author/">Authors</a></li>
                 <li><a href="/quote/">Quotes</a></li>
+            </ul>
+            <form sec:authorize="isAuthenticated()" class="navbar-form navbar-right" th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+            <ul sec:authorize="isAuthenticated()" class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/profile}" sec:authentication="name">Profile</a></li>
+            </ul>
+            <ul sec:authorize="!isAuthenticated()" class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/login}">Sign In</a></li>
+                <li><a th:href="@{/registration}">Sign Up</a></li>
             </ul>
         </div>
     </div>
