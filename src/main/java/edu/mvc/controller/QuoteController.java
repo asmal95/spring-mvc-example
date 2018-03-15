@@ -1,12 +1,18 @@
 package edu.mvc.controller;
 
+import edu.mvc.controller.entity.Greeting;
+import edu.mvc.controller.entity.HelloMessage;
 import edu.mvc.controller.form.FormQuote;
 import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.entity.Quote;
 import edu.mvc.repository.AuthorRepository;
 import edu.mvc.repository.QuoteRepository;
 import edu.mvc.repository.ThemeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -98,6 +104,18 @@ public class QuoteController {
         quoteRepository.delete(id);
 
         return "redirect:/quote";
+    }
+
+    @Autowired
+    private SimpMessagingTemplate template;
+
+    @MessageMapping("/hello")
+    //@SendTo("/topic/greetings")
+    public /*Greeting*/void greeting(HelloMessage message) throws Exception {
+        Thread.sleep(3000); // simulated delay
+        template.convertAndSend("/topic/greetings", new Greeting("Hello, " + message.getName() + "!"));
+        //template.convertAndSendToUser();
+        //return new Greeting("Hello, " + message.getName() + "!");
     }
 
 
