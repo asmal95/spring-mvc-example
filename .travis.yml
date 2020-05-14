@@ -1,12 +1,12 @@
 language: java
 before_install:
-  - chmod +x mvnw
+- chmod +x mvnw
 script:
-  - mvn clean install
+- mvn clean install
 deploy:
   provider: heroku
   api_key:
-    secure: $HEROKU_API_KEY
+    secure: gBbVa9UlgKdJOrY2HTUo+B5+ZVOl09DlJpbl1umrerD953fOfht/Hx5AS5fhyikrmZHt7VQFvbWbL4bOgzGEWibUoVX9k7wqiC7FywxOcsuiOiwppyqYm6lW4k4i7wxIlFACC48s8m2MQNQydYrI2bhEmPVBP42ZPyW9zc+d6o4mPBs4WKPOPXOYq0NuTkFVmwyQ5bB5FD17VizG9qojSr6MM8UN7M0GEftsc7TmBK8+nSJViniut99jhARs4U+fT3zchBREkBvOf+/LZKyadEBPWHbkVXoOlyaZVlvdpteJLl2caIBlmsL/YoHlPZqUcmzrFl3N5XqnyZL2iy2Dzk/1m2ZGs+XdF190UpW7CHlzTKk6fRe+lv3RnOJvHLL4v6k7GBCkV9nTTw3NapdXV7u+ZEMzBqhAvUU5YVjfma0ZILwUn7c56bSqkzFE6rR6C8XsAk9YRsp1auR3bRZKZE+1zBnH4Hj7j9hMNeUHDzp+sLdgmqm+qO94oz+wzDBzzDSIi3+4pVzP2EiT+lPuM5UByYccKse3a/ONbgmpo2paQZGRby56OhWvoIvFXKZu3Vk1g+q3SWsbYrrScf2c5RQ7/PIsKxJp8EvNbiSYL3Gw9RYehfxMjQYyzoVpo/Kgmrfm8clxaUEaBVL+hpEIb+77P1nDTsFMV5M6WWbutvY=
   app: zen-quote-service
   on:
     branch: master
