@@ -4,6 +4,7 @@ import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.controller.valid.AuthorValidator;
 import edu.mvc.entity.Author;
 import edu.mvc.repository.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,10 +17,10 @@ import javax.validation.Valid;
 @RequestMapping("/author")
 public class AuthorController {
 
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
+    private final AuthorValidator authorValidator;
 
-    private AuthorValidator authorValidator;
-
+    @Autowired
     public AuthorController(AuthorRepository authorRepository, AuthorValidator authorValidator) {
         this.authorRepository = authorRepository;
         this.authorValidator = authorValidator;
@@ -39,10 +40,7 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     public String view(@PathVariable Long id, ModelMap model) {
-        Author author = authorRepository.findOne(id);
-        if (author == null) {
-            throw new ResourceNotFoundException();
-        }
+        Author author = authorRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("author", author);
         return "author/view";
     }
@@ -58,10 +56,7 @@ public class AuthorController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, ModelMap model) {
 
-        Author author = authorRepository.findOne(id);
-        if (author == null) {
-            throw new ResourceNotFoundException();
-        }
+        Author author = authorRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("author", author);
 
         return "author/add";
@@ -82,7 +77,7 @@ public class AuthorController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
 
-        authorRepository.delete(id);
+        authorRepository.deleteById(id);
 
         return "redirect:/author";
     }

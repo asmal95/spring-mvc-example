@@ -6,6 +6,7 @@ import edu.mvc.entity.Quote;
 import edu.mvc.repository.AuthorRepository;
 import edu.mvc.repository.QuoteRepository;
 import edu.mvc.repository.ThemeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,14 +19,12 @@ import javax.validation.Valid;
 @RequestMapping("/quote")
 public class QuoteController {
 
-    private QuoteRepository quoteRepository;
+    private final QuoteRepository quoteRepository;
+    private final ThemeRepository themeRepository;
+    private final AuthorRepository authorRepository;
+    private final ConversionService conversionService;
 
-    private ThemeRepository themeRepository;
-
-    private AuthorRepository authorRepository;
-
-    private ConversionService conversionService;
-
+    @Autowired
     public QuoteController(QuoteRepository quoteRepository, ThemeRepository themeRepository,
                            AuthorRepository authorRepository, ConversionService conversionService) {
         this.quoteRepository = quoteRepository;
@@ -42,10 +41,7 @@ public class QuoteController {
 
     @GetMapping("/{id}")
     public String view(@PathVariable Long id, ModelMap model) {
-        Quote quote = quoteRepository.findOne(id);
-        if (quote == null) {
-            throw new ResourceNotFoundException();
-        }
+        Quote quote = quoteRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("quote", quote);
         return "quote/view";
     }
@@ -63,10 +59,7 @@ public class QuoteController {
     @GetMapping("/{id}/edit")
     public String add(@PathVariable Long id, ModelMap model) {
 
-        Quote quote = quoteRepository.findOne(id);
-        if (quote == null) {
-            throw new ResourceNotFoundException();
-        }
+        Quote quote = quoteRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         FormQuote formQuote = conversionService.convert(quote, FormQuote.class);
         model.addAttribute("quote", formQuote);
         model.addAttribute("authors", authorRepository.findAll());
@@ -95,7 +88,7 @@ public class QuoteController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
 
-        quoteRepository.delete(id);
+        quoteRepository.deleteById(id);
 
         return "redirect:/quote";
     }

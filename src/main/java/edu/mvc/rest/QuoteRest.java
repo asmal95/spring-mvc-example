@@ -1,6 +1,7 @@
 package edu.mvc.rest;
 
 import edu.mvc.controller.form.FormQuote;
+import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.entity.Quote;
 import edu.mvc.repository.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,14 @@ public class QuoteRest {
     @GetMapping("/{id}")
     public FormQuote getQuote(@PathVariable Long id) {
 
-        Quote quote =  quoteRepository.findOne(id);
+        Quote quote =  quoteRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         return conversionService.convert(quote, FormQuote.class);
     }
 
     @DeleteMapping("/{id}")
     public void deleteQuote(@PathVariable Long id) {
 
-        quoteRepository.delete(id);
+        quoteRepository.deleteById(id);
     }
 
     @PutMapping
@@ -40,7 +41,7 @@ public class QuoteRest {
 
     @PatchMapping("/{id}")
     public FormQuote patchQuote(@PathVariable Long id, @RequestBody FormQuote formQuote) {
-        if (!id.equals(formQuote.getId()) || quoteRepository.findOne(id) == null) {
+        if (!id.equals(formQuote.getId()) || !quoteRepository.findById(id).isPresent()) {
             throw new IllegalArgumentException();
         }
         Quote quote = conversionService.convert(formQuote, Quote.class);

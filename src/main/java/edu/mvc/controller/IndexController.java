@@ -2,6 +2,7 @@ package edu.mvc.controller;
 
 import edu.mvc.entity.Quote;
 import edu.mvc.repository.QuoteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,9 @@ import java.util.Random;
 @RequestMapping("/")
 public class IndexController {
 
-    private QuoteRepository quoteRepository;
+    private final QuoteRepository quoteRepository;
 
+    @Autowired
     public IndexController(QuoteRepository quoteRepository) {
         this.quoteRepository = quoteRepository;
     }
