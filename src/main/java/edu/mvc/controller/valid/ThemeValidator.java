@@ -2,6 +2,7 @@ package edu.mvc.controller.valid;
 
 import edu.mvc.entity.Theme;
 import edu.mvc.repository.ThemeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,8 +12,9 @@ import java.util.Objects;
 @Component
 public class ThemeValidator implements Validator {
 
-    private ThemeRepository repository;
+    private final ThemeRepository repository;
 
+    @Autowired
     public ThemeValidator(ThemeRepository repository) {
         this.repository = repository;
     }

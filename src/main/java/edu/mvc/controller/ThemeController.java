@@ -4,6 +4,7 @@ import edu.mvc.controller.response.ResourceNotFoundException;
 import edu.mvc.controller.valid.ThemeValidator;
 import edu.mvc.entity.Theme;
 import edu.mvc.repository.ThemeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,10 +17,10 @@ import javax.validation.Valid;
 @RequestMapping("/theme")
 public class ThemeController {
 
-    private ThemeRepository themeRepository;
+    private final ThemeRepository themeRepository;
+    private final ThemeValidator themeValidator;
 
-    private ThemeValidator themeValidator;
-
+    @Autowired
     public ThemeController(ThemeRepository themeRepository, ThemeValidator themeValidator) {
         this.themeRepository = themeRepository;
         this.themeValidator = themeValidator;
@@ -38,10 +39,7 @@ public class ThemeController {
 
     @GetMapping("/{id}")
     public String view(@PathVariable Long id, ModelMap model) {
-        Theme theme = themeRepository.findOne(id);
-        if (theme == null) {
-            throw new ResourceNotFoundException();
-        }
+        Theme theme = themeRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("theme", theme);
         return "theme/view";
     }
@@ -56,10 +54,7 @@ public class ThemeController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, ModelMap model) {
-        Theme theme = themeRepository.findOne(id);
-        if (theme == null) {
-            throw new ResourceNotFoundException();
-        }
+        Theme theme = themeRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         model.addAttribute("theme", theme);
 
         return "theme/add";
@@ -80,7 +75,7 @@ public class ThemeController {
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
 
-        themeRepository.delete(id);
+        themeRepository.deleteById(id);
 
         return "redirect:/theme";
     }

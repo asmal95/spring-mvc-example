@@ -2,6 +2,7 @@ package edu.mvc.controller.valid;
 
 import edu.mvc.entity.Author;
 import edu.mvc.repository.AuthorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -11,8 +12,9 @@ import java.util.Objects;
 @Component
 public class AuthorValidator implements Validator {
 
-    private AuthorRepository repository;
+    private final AuthorRepository repository;
 
+    @Autowired
     public AuthorValidator(AuthorRepository repository) {
         this.repository = repository;
     }
