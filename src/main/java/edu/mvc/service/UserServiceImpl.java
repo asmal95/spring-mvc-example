@@ -22,14 +22,19 @@ public class UserServiceImpl implements UserService {
     private static final long ROLE_USER_ID = 1L;
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
+    }
+
+    @Autowired
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
     @Override
